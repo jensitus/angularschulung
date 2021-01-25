@@ -13,7 +13,7 @@ export class BookCardComponent implements OnInit {
   @Output() detailClick = new EventEmitter<Book>();
 
   customStyle = {
-    color: 'red'
+    color: 'grey'
   };
 
   constructor() { }
