@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Book} from './model/book';
 import {BookApiService} from './service/book-api.service';
+import {delay, finalize, share, takeUntil} from 'rxjs/operators';
+import {EMPTY, Observable, Subject, Subscription, throwError} from 'rxjs';
 
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.scss']
 })
-export class BookComponent implements OnInit {
+export class BookComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   bookSearchTerm: string;
-
-  books: Book[];
+  books$: Observable<Book[]> = EMPTY;
+  loading = false;
+  private subscription: Subscription;
+  private onDestroy = new Subject();
 
   constructor(
     private bookApiService: BookApiService
@@ -31,7 +35,27 @@ export class BookComponent implements OnInit {
     this.bookSearchTerm = input.target.value;
   }
 
-  getAllBooks() {
-    this.books = this.bookApiService.getAll();
+  getAllBooks(): void {
+    this.loading = true;
+    this.books$ = this.bookApiService.getAll().pipe(
+      delay(1000),
+      finalize(() => this.loading = false),
+      takeUntil(this.onDestroy),
+      share()
+    );
   }
+
+  ngAfterViewInit(): void {
+    console.log('after view init');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes', changes);
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.subscription.unsubscribe();
+  }
+
 }

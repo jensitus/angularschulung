@@ -1,4 +1,4 @@
 <input (input)="updateBookSearchTerm($event)"/>
-<app-book-card [content]="book" *ngFor="let book of books | bookFilter: bookSearchTerm" (detailClick)="goToBookDetails($event)"></app-book-card>
+<app-book-card [content]="book" *ngFor="let book of books$ | async | bookFilter: bookSearchTerm" (detailClick)="goToBookDetails($event)"></app-book-card>
 
-
+<div *ngIf="loading">Loading ...</div>

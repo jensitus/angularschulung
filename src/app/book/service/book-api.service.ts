@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Book} from '../model/book';
+import {Observable, of} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,13 @@ export class BookApiService {
     abstract: 'the epic hunt of the white whale'
   }];
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  getAll(): Book[] {
-    return this.books;
+  getAll(): Observable<Book[]> {
+    // return of(this.books);
+    return this.http.get<Book[]>('http://localhost:4730/books');
   }
 
 
