@@ -27,5 +27,9 @@ export class BookApiService {
     return this.http.get<Book[]>('http://localhost:4730/books');
   }
 
+  getTheDetailedBook(isbn: string): Observable<Book> {
+    return this.http.get<Book>('http://localhost:4730/books/' + isbn);
+  }
+
 
 }

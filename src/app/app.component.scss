@@ -1,0 +1,11 @@
+nav {
+  display: flex;
+  margin: 0 1em;
+  a {
+    text-decoration: none;
+    margin: 1em;
+    &.active {
+      text-decoration: underline;
+    }
+  }
+}

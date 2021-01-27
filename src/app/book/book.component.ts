@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges} f
 import {Book} from './model/book';
 import {BookApiService} from './service/book-api.service';
 import {delay, finalize, share, takeUntil} from 'rxjs/operators';
-import {EMPTY, Observable, Subject, Subscription, throwError} from 'rxjs';
+import {EMPTY, Observable, Subject, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -14,7 +14,7 @@ export class BookComponent implements OnInit, AfterViewInit, OnChanges, OnDestro
   bookSearchTerm: string;
   books$: Observable<Book[]> = EMPTY;
   loading = false;
-  private subscription: Subscription;
+  private subscription: Subscription | undefined;
   private onDestroy = new Subject();
 
   constructor(
@@ -55,7 +55,7 @@ export class BookComponent implements OnInit, AfterViewInit, OnChanges, OnDestro
 
   ngOnDestroy(): void {
     this.onDestroy.next();
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
 }
