@@ -1,0 +1,15 @@
+<p>book-new works!</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <input type="text" formControlName="title" placeholder="title">
+  </div>
+
+  <div>
+    <input type="text" formControlName="author" placeholder="author">
+  </div>
+  <div>
+    <input type="text" formControlName="isbn" placeholder="isbn">
+  </div>
+  <button type="submit">click</button>
+</form>

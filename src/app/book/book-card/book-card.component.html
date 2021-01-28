@@ -6,4 +6,5 @@
   <div [style]="customStyle">{{content.abstract}}</div>
   <a [routerLink]="['/books/detail', content.isbn]">{{content.isbn}}</a>
   <button (click)="handleDetailClickEvent()">click</button>
+  <a [routerLink]="['/books/detail', content.isbn, 'edit']">Edit</a>
 </ng-container>

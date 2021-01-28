@@ -1,4 +1,4 @@
-
+<div><a [routerLink]="['new']">add new book</a></div>
 <input (input)="updateBookSearchTerm($event)"/>
 <app-book-card [content]="book" *ngFor="let book of books$ | async | bookFilter: bookSearchTerm" (detailClick)="goToBookDetails($event)"></app-book-card>
 

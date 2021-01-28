@@ -15,31 +15,28 @@ export class BookDetailComponent implements OnInit, OnDestroy {
 
   isbn: string;
   book: Book;
-  private subscription = Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private bookApiService: BookApiService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.route.params.pipe(
-      switchMap((params) => this.bookApiService.getTheDetailedBook(params.isbn))
-    ).subscribe(book => {
-        this.book = book;
-    });
+    this.getTheBook();
   }
 
   getTheBook(): void {
-    // this.bookApiService.getTheDetailedBook(this.isbn).subscribe(book => {
-    //   this.book = book;
-    //   console.log('detailBook', this.book);
-    // });
+    this.route.params.pipe(
+      switchMap((params) => this.bookApiService.getTheDetailedBook(params.isbn))
+    ).subscribe(book => {
+      this.book = book;
+    });
   }
 
   ngOnDestroy(): void {
-  }
 
+  }
 
 
 }
